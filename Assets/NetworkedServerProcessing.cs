@@ -4,11 +4,11 @@ using UnityEngine;
 
 static public class NetworkedServerProcessing
 {
-    
+
     #region Send and Receive Data Functions
-    static public void ReceivedMessageFromClient(string msg, int id)
+    static public void ReceivedMessageFromClient(string msg, int clientConnectionID)
     {
-        Debug.Log("msg received = " + msg + ".  connection id = " + id);
+        Debug.Log("msg received = " + msg + ".  connection id = " + clientConnectionID);
 
         string[] csv = msg.Split(',');
         int signifier = int.Parse(csv[0]);
@@ -24,21 +24,22 @@ static public class NetworkedServerProcessing
 
         //gameLogic.DoSomething();
     }
-    static public void SendMessageToClient(string msg, int id)
+    static public void SendMessageToClient(string msg, int clientConnectionID)
     {
-        networkedServer.SendMessageToClient(msg, id);
+        networkedServer.SendMessageToClient(msg, clientConnectionID);
     }
 
     #endregion
 
     #region Connection Events
-    static public void DisconnectionEvent(int clientConnectionID)
-    {
-        Debug.Log("New Disconnection, ID == " + clientConnectionID);
-    }
+
     static public void ConnectionEvent(int clientConnectionID)
     {
         Debug.Log("New Connection, ID == " + clientConnectionID);
+    }
+    static public void DisconnectionEvent(int clientConnectionID)
+    {
+        Debug.Log("New Disconnection, ID == " + clientConnectionID);
     }
 
     #endregion
